@@ -18,15 +18,14 @@ class WrongError(Exception):
 
 
 class RightError(JSONCustomException):
-    message = 'Right'
+    message = "Right"
     code = -32001
 
 
 class TestError(unittest.TestCase):
-
     def test_base(self):
-        e = JSONException('foo')
-        self.assertEqual(str(e), 'Unknown error: foo')
+        e = JSONException("foo")
+        self.assertEqual(str(e), "Unknown error: foo")
 
     def test_error_by_code(self):
         e = JSONErrors.get(-32700)
@@ -46,31 +45,31 @@ class TestError(unittest.TestCase):
             JSONErrors.add(JSONErrors.local_max + 1, RightError)
 
         JSONErrors.add(-32000, RightError)
-        e_retrieved = JSONErrors.get(-32000, 'foo')
+        e_retrieved = JSONErrors.get(-32000, "foo")
         self.assertEqual(type(RightError(None)), type(e_retrieved))
-        self.assertEqual(str(e_retrieved), 'Right error: foo')
+        self.assertEqual(str(e_retrieved), "Right error: foo")
 
     def test_error_interface(self):
-        uu = 'foo'
+        uu = "foo"
         e = json_error(uu, -32700)
-        self.assertEqual(e['error']['code'], -32700)
-        self.assertEqual(e['error']['message'], 'Parse error')
+        self.assertEqual(e["error"]["code"], -32700)
+        self.assertEqual(e["error"]["message"], "Parse error")
 
     def test_default_error_translate(self):
-        uu = 'foo'
+        uu = "foo"
         p = DefaultErrorParser()
         e = json_error(uu, -32700)
         o = p.translate(e)
-        print('e {}'.format(o))
+        print("e {}".format(o))
 
     def test_error_serialize(self):
-        e = JSONParseError('foo', request_id='bar')
+        e = JSONParseError("foo", request_id="bar")
         o = dict(e)
-        self.assertEqual(o['json'], '2.0')
-        self.assertEqual(o['id'], 'bar')
-        self.assertEqual(o['error']['code'], -32700)
-        self.assertEqual(o['error']['message'], 'Parse error: foo')
+        self.assertEqual(o["json"], "2.0")
+        self.assertEqual(o["id"], "bar")
+        self.assertEqual(o["error"]["code"], -32700)
+        self.assertEqual(o["error"]["message"], "Parse error: foo")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

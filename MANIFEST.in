@@ -1,2 +1,4 @@
 include LICENSE.md
 include setup.py
+include .editorconfig
+include README.md

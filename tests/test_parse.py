@@ -3,8 +3,8 @@ import unittest
 import io
 
 # local imports
-from src.parse import *
-from src.error import (
+from parse import *
+from error import (
     JSONParseError,
 )
 
@@ -42,17 +42,10 @@ class TestParse(unittest.TestCase):
         self.assertEqual(r["method"], self.valid_o["method"])
 
     def test_missing_version(self):
-        o = self.valid_o
-        del o["jsonrpc"]
-        with self.assertRaises(JSONParseError):
-            json_from_dict(o)
+        o = self._extracted_from_test_params_2("jsonrpc")
 
     def test_id(self):
-        o = self.valid_o
-        del o["id"]
-        with self.assertRaises(JSONParseError):
-            json_from_dict(o)
-
+        o = self._extracted_from_test_params_2("id")
         o["id"] = None
         with self.assertRaises(JSONParseError):
             json_from_dict(o)
@@ -66,12 +59,7 @@ class TestParse(unittest.TestCase):
             json_from_dict(o)
 
     def test_method(self):
-        o = self.valid_o
-        del o["method"]
-
-        with self.assertRaises(JSONParseError):
-            json_from_dict(o)
-
+        o = self._extracted_from_test_params_2("method")
         o["method"] = None
         with self.assertRaises(JSONParseError):
             json_from_dict(o)
@@ -89,12 +77,7 @@ class TestParse(unittest.TestCase):
             json_from_dict(o)
 
     def test_params(self):
-        o = self.valid_o
-        del o["params"]
-
-        with self.assertRaises(JSONParseError):
-            json_from_dict(o)
-
+        o = self._extracted_from_test_params_2("params")
         o["params"] = None
         with self.assertRaises(JSONParseError):
             json_from_dict(o)
@@ -102,6 +85,13 @@ class TestParse(unittest.TestCase):
         o["params"] = {}
         with self.assertRaises(JSONParseError):
             json_from_dict(o)
+
+    def _extracted_from_test_params_2(self, arg0):
+        result = self.valid_o
+        del result[arg0]
+        with self.assertRaises(JSONParseError):
+            json_from_dict(result)
+        return result
 
 
 if __name__ == "__main__":

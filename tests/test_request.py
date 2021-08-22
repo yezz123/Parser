@@ -2,10 +2,10 @@
 import unittest
 
 # local imports
-from src.base import JSON_PRC
-from src.interface import (
+from base import JSON_PRC
+from interface import (
     json_request,
-    json_response,
+    jsonrpc_response,
     json_result,
     json_is_response_to,
 )
@@ -20,7 +20,7 @@ class TestRequest(unittest.TestCase):
         self.assertEqual(len(req["params"]), 0)
 
     def test_response(self):
-        res = json_response("foo", 42)
+        res = jsonrpc_response("foo", 42)
         self.assertEqual(res["id"], "foo")
         self.assertEqual(res["result"], 42)
         r = json_result(res, None)
@@ -28,7 +28,7 @@ class TestRequest(unittest.TestCase):
 
     def test_response_compare(self):
         req = json_request("foo_barBaz")
-        res = json_response(req["id"], 42)
+        res = jsonrpc_response(req["id"], 42)
         self.assertTrue(json_is_response_to(req, res))
 
 

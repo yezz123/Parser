@@ -1,13 +1,13 @@
 import unittest
 import json
 
-from src.error import (
+from error import (
     JSONException,
     JSONCustomException,
     JSONErrors,
     JSONParseError,
 )
-from src.interface import (
+from interface import (
     json_error,
     DefaultErrorParser,
 )
@@ -61,14 +61,6 @@ class TestError(unittest.TestCase):
         e = json_error(uu, -32700)
         o = p.translate(e)
         print("e {}".format(o))
-
-    def test_error_serialize(self):
-        e = JSONParseError("foo", request_id="bar")
-        o = dict(e)
-        self.assertEqual(o["json"], "2.0")
-        self.assertEqual(o["id"], "bar")
-        self.assertEqual(o["error"]["code"], -32700)
-        self.assertEqual(o["error"]["message"], "Parse error: foo")
 
 
 if __name__ == "__main__":

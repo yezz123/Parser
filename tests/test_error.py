@@ -1,16 +1,7 @@
 import unittest
-import json
 
-from error import (
-    JSONException,
-    JSONCustomException,
-    JSONErrors,
-    JSONParseError,
-)
-from interface import (
-    json_error,
-    DefaultErrorParser,
-)
+from Parser.error import JSONCustomException, JSONErrors, JSONException, JSONParseError
+from Parser.interface import DefaultErrorParser, json_error
 
 
 class WrongError(Exception):
@@ -60,7 +51,7 @@ class TestError(unittest.TestCase):
         p = DefaultErrorParser()
         e = json_error(uu, -32700)
         o = p.translate(e)
-        print("e {}".format(o))
+        return "e {}".format(o)
 
 
 if __name__ == "__main__":

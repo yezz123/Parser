@@ -2,12 +2,12 @@
 import unittest
 
 # local imports
-from base import JSON_PRC
-from interface import (
-    json_request,
-    jsonrpc_response,
-    json_result,
+from Parser.base import JSON_PRC
+from Parser.interface import (
     json_is_response_to,
+    json_request,
+    json_result,
+    jsonrpc_response,
 )
 
 

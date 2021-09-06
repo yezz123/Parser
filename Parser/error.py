@@ -1,5 +1,5 @@
 # local imports
-from base import JSON_PRC
+from Parser.base import JSON_PRC
 
 
 class JSONException(Exception, JSON_PRC):

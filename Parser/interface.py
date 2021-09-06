@@ -1,6 +1,7 @@
 import uuid
-from base import JSON_PRC
-from error import JSONErrors, JSONUnhandledErrorException
+
+from Parser.base import JSON_PRC
+from Parser.error import JSONErrors, JSONUnhandledErrorException
 
 
 class DefaultErrorParser:
@@ -56,10 +57,7 @@ def json_error(request_id, code, message=None):
     return {
         "json_prc": JSON_PRC.version_string,
         "id": request_id,
-        "error": {
-            "code": code,
-            "message": str(e),
-        },
+        "error": {"code": code, "message": str(e),},
     }
 
 

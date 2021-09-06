@@ -1,12 +1,8 @@
 import json
+
 from Parser.base import JSON_PRC
-from Parser.error import (
-    JSONParseError,
-    JSONInvalidRequestError,
-)
-from Parser.interface import (
-    json_request,
-)
+from Parser.error import JSONInvalidRequestError, JSONParseError
+from Parser.interface import json_request
 
 
 def json_validate_dict(o):
@@ -32,8 +28,7 @@ def json_validate_dict(o):
     if request_id is None:
         raise JSONParseError("missing id field")
     if type(request_id).__name__ not in ["str", "int"]:
-        raise JSONInvalidRequestError(
-            "invalid id value, must be string or integer")
+        raise JSONInvalidRequestError("invalid id value, must be string or integer")
 
     return o
 
